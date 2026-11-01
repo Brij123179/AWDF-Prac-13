@@ -13,26 +13,24 @@ const Navbar = ({ apiStatus, onOpenAuthModal, onOpenInspector, onOpenEventModal,
     <header className="navbar">
       <div className="nav-container">
         {/* Brand */}
-        <NavLink to="/" className="nav-brand">
+        <NavLink to="/" className="nav-brand" title="TaskFlow Pro & Developer Portfolio">
           <div className="logo-icon-wrapper">
             <Boxes size={20} color="#ffffff" />
           </div>
           <div className="nav-title-group">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <h1>Brij Patel</h1>
-              <span className="badge badge-blue" style={{ fontSize: '0.68rem', padding: '1px 7px' }}>
-                Full-Stack
-              </span>
+            <div className="brand-title-row">
+              <span className="brand-title">TaskFlow <span style={{ color: '#38bdf8' }}>Pro</span></span>
+              <span className="brand-badge">P1–P13</span>
             </div>
             <div className="nav-subtitle">
               <span className="pulse-dot" />
-              <span>CHARUSAT ITUE301 &bull; Practicals 1-13 Capstone</span>
+              <span>Brij Patel &bull; CHARUSAT</span>
             </div>
           </div>
         </NavLink>
 
-        {/* Route Links (React Router) */}
-        <nav className="nav-links">
+        {/* Route Links (Pill Navigation - Practical 2 & Practical 10 Aesthetic) */}
+        <nav className="nav-links" aria-label="Main navigation">
           <NavLink
             to="/"
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
@@ -75,53 +73,41 @@ const Navbar = ({ apiStatus, onOpenAuthModal, onOpenInspector, onOpenEventModal,
           </NavLink>
         </nav>
 
-        {/* Action Controls */}
+        {/* Action Controls & Diagnostic Utilities */}
         <div className="nav-actions">
+          {/* AI Studio Assistant Modal Button (Practical 13) */}
+          <button
+            onClick={onOpenAIModal}
+            className="nav-action-pill nav-action-ai"
+            title="Practical 13: AI Integration & Responsible AI Panel"
+          >
+            <Sparkles size={14} />
+            <span>AI Studio</span>
+          </button>
+
           {/* EventEmitter Telemetry Modal Button (Practical 10) */}
           <button
             onClick={onOpenEventModal}
-            className="btn btn-secondary btn-sm"
-            style={{ padding: '0.35rem 0.65rem', fontSize: '0.78rem', color: '#60a5fa' }}
+            className="nav-action-pill nav-action-events"
             title="Practical 10: Event-Driven Subsystem Telemetry"
           >
             <Radio size={13} />
             <span>Events</span>
           </button>
 
-          {/* AI Studio Assistant Modal Button (Practical 13) */}
-          <button
-            onClick={onOpenAIModal}
-            className="btn btn-secondary btn-sm"
-            style={{
-              padding: '0.35rem 0.65rem',
-              fontSize: '0.78rem',
-              color: '#38bdf8',
-              borderColor: 'rgba(56, 189, 248, 0.3)'
-            }}
-            title="Practical 13: AI Integration & Responsible AI Panel"
-          >
-            <Sparkles size={13} />
-            <span>AI Studio</span>
-          </button>
-
           {/* In-Memory Caching Toggle (Practical 9) */}
           <button
             onClick={() => setBypassCache(!bypassCache)}
-            className="btn btn-secondary btn-sm"
-            style={{
-              padding: '0.35rem 0.65rem',
-              fontSize: '0.78rem',
-              color: bypassCache ? '#fbbf24' : '#34d399'
-            }}
+            className={`nav-action-pill nav-action-cache ${bypassCache ? 'bypassed' : ''}`}
             title={bypassCache ? "In-Memory Cache is bypassed (?nocache=true)" : "In-Memory Cache is active (TTL: 60s)"}
           >
             <Zap size={13} />
-            <span>{bypassCache ? 'Bypass' : 'Cached'}</span>
+            <span>{bypassCache ? 'Bypassed' : 'Cached'}</span>
           </button>
 
           {/* Chunk Inspector Badge (Practical 8) */}
           <button
-            className="chunk-badge-btn"
+            className="nav-action-pill nav-action-chunks"
             onClick={onOpenInspector}
             title="Practical 8: Inspect Dynamic Code-Split Chunks in Real Time"
           >
@@ -131,45 +117,32 @@ const Navbar = ({ apiStatus, onOpenAuthModal, onOpenInspector, onOpenEventModal,
 
           {/* Auth State & Instant Guest Demo */}
           {isAuthenticated ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  background: 'rgba(37, 99, 235, 0.12)',
-                  padding: '0.35rem 0.75rem',
-                  borderRadius: 'var(--radius-full)',
-                  border: '1px solid rgba(37, 99, 235, 0.3)',
-                  fontSize: '0.8rem',
-                  color: '#93c5fd'
-                }}
-              >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <div className="nav-user-pill">
                 <User size={13} />
-                <span style={{ fontWeight: 600 }}>{user?.name || 'Developer'}</span>
+                <span>{user?.name || 'Developer'}</span>
               </div>
               <button
-                className="btn btn-secondary btn-sm"
+                className="nav-btn-logout"
                 onClick={logout}
                 title="Sign Out"
-                style={{ padding: '0.35rem 0.55rem' }}
+                aria-label="Sign Out"
               >
-                <LogOut size={13} />
+                <LogOut size={14} />
               </button>
             </div>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
               <button
-                className="btn btn-secondary btn-sm"
+                className="nav-action-pill nav-action-demo"
                 onClick={loginAsGuest}
                 title="1-Click Instant Guest Access"
-                style={{ background: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.3)', color: '#34d399' }}
               >
                 <Play size={12} fill="#34d399" />
-                <span>Demo Mode</span>
+                <span>Demo</span>
               </button>
               <button
-                className="btn btn-primary btn-sm"
+                className="nav-btn-signin"
                 onClick={onOpenAuthModal}
               >
                 <LogIn size={13} />
