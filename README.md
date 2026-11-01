@@ -29,20 +29,21 @@
 
 ## 📋 Table of Contents
 1. [Executive Summary & Capstone Scope](#-executive-summary--capstone-scope)
-2. [Solving the "AI-Generated UI" Problem: Handcrafted Design System](#-solving-the-ai-generated-ui-problem-handcrafted-design-system)
-3. [Unified Architecture (Practicals 1 to 13)](#-unified-architecture-practicals-1-to-13)
-4. [Key Questions & Analysis](#-key-questions--analysis)
-5. [Supplementary Problems Implemented](#-supplementary-problems-implemented)
-6. [Implementation Walkthrough](#-implementation-walkthrough)
+2. [Capstone Project Demo Video & Scene Walkthrough](#-capstone-project-demo-video--scene-walkthrough)
+3. [Solving the "AI-Generated UI" Problem: Handcrafted Design System](#-solving-the-ai-generated-ui-problem-handcrafted-design-system)
+4. [Unified Architecture (Practicals 1 to 13)](#-unified-architecture-practicals-1-to-13)
+5. [Key Questions & Analysis](#-key-questions--analysis)
+6. [Supplementary Problems Implemented](#-supplementary-problems-implemented)
+7. [Implementation Walkthrough](#-implementation-walkthrough)
    - [Developer Portfolio & Interactive Contact Hub (P1–P3)](#1-developer-portfolio--interactive-contact-hub-p1p3)
    - [TaskFlow Pro Core CRUD & REST API (P4–P7)](#2-taskflow-pro-core-crud--rest-api-p4p7)
    - [Performance, Code Splitting & Caching (P8–P9)](#3-performance-code-splitting--caching-p8p9)
    - [Event Subsystem & DevOps Containerization (P10–P12)](#4-event-subsystem--devops-containerization-p10p12)
    - [Server-Side AI Integration & Graceful Degradation (P13)](#5-server-side-ai-integration--graceful-degradation-p13)
-7. [Visual Evidence & Screenshots](#-visual-evidence--screenshots)
-8. [Troubleshooting Guide](#-troubleshooting-guide)
-9. [Viva Voce Questions & Answers](#-viva-voce-questions--answers)
-10. [How to Run Locally](#-how-to-run-locally)
+8. [Visual Evidence & Screenshots](#-visual-evidence--screenshots)
+9. [Troubleshooting Guide](#-troubleshooting-guide)
+10. [Viva Voce Questions & Answers](#-viva-voce-questions--answers)
+11. [How to Run Locally](#-how-to-run-locally)
 
 ---
 
@@ -52,6 +53,31 @@ Practical 13 serves as the **Grand Capstone Web Application** for the CHARUSAT A
 1. **The Professional Developer Portfolio** (from Practicals 1, 2, and 3): Showcasing engineering credentials, an interactive skills matrix, academic milestones at CHARUSAT, project case studies, and an interactive contact hub with live character counting and real-time input synchronization.
 2. **TaskFlow Pro** (from Practicals 3–12): Production full-stack task management with JWT authentication, instant guest demo access, sub-millisecond in-memory caching (`node-cache`), MongoDB explain query analysis, decoupled background event emitters, Docker containerization, and GitHub Actions CI/CD automation.
 3. **Resilient Server-Side AI Copilot** (Practical 13): Live text generation via OpenAI (`gpt-4o-mini`) and Google Gemini (`gemini-1.5-flash`), backed by a bulletproof **Graceful Degradation Engine**, strict server-side key quarantine, and rate-limiting protection.
+
+---
+
+## 🎬 Capstone Project Demo Video & Scene Walkthrough
+
+An end-to-end 720p HD demonstration video has been generated and compiled into [`Practical-13/demo/Practical_13_Capstone_Demo.mp4`](file:///E:/AWDF/Practical-13/demo/Practical_13_Capstone_Demo.mp4) (Length: 66 seconds, 30fps H.264 video with synchronized audio bed).
+
+> 🎥 **Direct Video File Link**: [Practical_13_Capstone_Demo.mp4](file:///E:/AWDF/Practical-13/demo/Practical_13_Capstone_Demo.mp4)  
+> 📁 **High-Res Frame Stills**: Available under [`Practical-13/demo/frames/`](file:///E:/AWDF/Practical-13/demo/frames/)
+
+### ⏱️ Video Timeline & Scene Guide
+
+| Scene & Time | Practical Context | Feature Demonstrated | Technical Architecture | Frame Link |
+| :--- | :--- | :--- | :--- | :--- |
+| **Scene 01**<br>`00:00 - 00:06` | **Capstone Title**<br>(Practicals 1–13) | **Grand Capstone Introduction** | Unified platform summary displaying 13/13 practicals integrated, 7/7 passing tests, sub-millisecond cache latency, and server-isolated AI secrets. | [Frame 01](file:///E:/AWDF/Practical-13/demo/frames/scene_01.png) |
+| **Scene 02**<br>`00:06 - 00:12` | **P1, P2, P3, P8** | **Developer Portfolio & Skills Matrix** | Brij Patel's academic credentials at CHARUSAT FTE, categorization badges across Frontend (React 18, Vite, React.lazy), Backend (Node.js ESM, Express, JWT), and DevOps. | [Frame 02](file:///E:/AWDF/Practical-13/demo/frames/scene_02.png) |
+| **Scene 03**<br>`00:12 - 00:18` | **P2, P6** | **Interactive Contact Hub & State Sync** | Real-time dual-binding form with instant character countdown ticker (200 chars remaining), live message preview card, and instant validation indicators. | [Frame 03](file:///E:/AWDF/Practical-13/demo/frames/scene_03.png) |
+| **Scene 04**<br>`00:18 - 00:24` | **P7, P8, P13** | **TaskFlow Pro Dashboard & Pill Navigation** | Production task manager with unified Obsidian Slate pill navbar, live metric counters (Total: 4, Pending: 2, Completed: 2), and priority badges. | [Frame 04](file:///E:/AWDF/Practical-13/demo/frames/scene_04.png) |
+| **Scene 05**<br>`00:24 - 00:30` | **P13 Core** | **Server-Side AI Copilot Trigger** | User inputs task title *"Implement Redis distributed lock"* and triggers the `"✨ Generate with AI"` action button, initiating the backend proxy request. | [Frame 05](file:///E:/AWDF/Practical-13/demo/frames/scene_05.png) |
+| **Scene 06**<br>`00:30 - 00:36` | **P13 Supp 1** | **Generated Description & AI Disclaimer** | Asynchronous generation response automatically populates the editable textarea with an amber `"⚠️ AI Generated - Review & verify before submitting"` warning. | [Frame 06](file:///E:/AWDF/Practical-13/demo/frames/scene_06.png) |
+| **Scene 07**<br>`00:36 - 00:42` | **P13 Step 6** | **Graceful Degradation Contextual Fallback** | When upstream LLM provider fails (or credentials missing), the server switches seamlessly to the heuristic fallback engine without raising client errors. | [Frame 07](file:///E:/AWDF/Practical-13/demo/frames/scene_07.png) |
+| **Scene 08**<br>`00:42 - 00:48` | **P13 Supp 2** | **API Rate Limiter Protection (HTTP 429)** | In-memory token-bucket limiter blocks rapid repeat clicks within 60s, rendering an amber cooldown banner: *"Rate limit: Please wait 48s before requesting another AI prompt"*. | [Frame 08](file:///E:/AWDF/Practical-13/demo/frames/scene_08.png) |
+| **Scene 09**<br>`00:48 - 00:54` | **P9** | **Sub-Millisecond In-Memory Caching HUD** | Real-time cache performance HUD displaying hits, misses, 91.2% hit ratio, and sub-millisecond retrieval speeds (<0.8ms vs 45ms DB disk reads). | [Frame 09](file:///E:/AWDF/Practical-13/demo/frames/scene_09.png) |
+| **Scene 10**<br>`00:54 - 01:00` | **P10** | **EventEmitter Real-Time Audit Subsystem** | Native Node.js `EventEmitter` streaming non-blocking audit records (`TASK_CREATED`, `AI_FALLBACK_ENGAGED`, `CACHE_INVALIDATED`) to in-memory buffers. | [Frame 10](file:///E:/AWDF/Practical-13/demo/frames/scene_10.png) |
+| **Scene 11**<br>`01:00 - 01:06` | **P11, P12** | **Docker Containers & GitHub Actions CI/CD** | Multi-stage Alpine containerization architecture and automated YAML pipeline verifying linting, unit testing, and production builds on push. | [Frame 11](file:///E:/AWDF/Practical-13/demo/frames/scene_11.png) |
 
 ---
 
