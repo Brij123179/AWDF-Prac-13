@@ -206,6 +206,7 @@ Inside [`aiRateLimiter.js`](file:///E:/AWDF/Practical-13/backend/middleware/aiRa
 | **05. Rate Limit Protection** | Backend rate limiter intercepting repeated requests within 60s with HTTP 429 countdown. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/05_ai_rate_limit_protection.png) |
 | **06. Test Suite Terminal** | Local Node.js test runner verifying all 7 automated unit and integration tests passing. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/06_ai_backend_endpoint_test.png) |
 | **07. Portfolio & TaskFlow Combined** | Capstone homepage showcasing Brij Patel's portfolio, skills matrix, and TaskFlow Pro launcher. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/07_portfolio_taskflow_combined.png) |
+| **08. TaskFlow Pro Dashboard** | Production dashboard with real-time stats cards, cache telemetry HUD, filters, and task list. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/08_taskflow_pro_dashboard.png) |
 
 ---
 

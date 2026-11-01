@@ -94,7 +94,7 @@ const TaskForm = ({ onAddTask, isSubmitting }) => {
         </span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 180px 140px', gap: '0.85rem', alignItems: 'flex-start' }}>
+      <div className="task-form-controls">
         <input
           type="text"
           className="input-field"

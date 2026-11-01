@@ -183,7 +183,7 @@ const HomePage = ({ addToast, onOpenAuthModal }) => {
         <div className="hero-badges">
           <span className="badge badge-indigo">
             <Layers size={13} />
-            Route: / (Home Chunk)
+            Route: /tasks (Tasks Chunk)
           </span>
           <span className="badge badge-emerald">
             <Zap size={13} />

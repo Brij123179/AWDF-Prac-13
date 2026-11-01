@@ -518,3 +518,4 @@ const PortfolioPage = ({ addToast, onOpenAuthModal, onOpenAIModal }) => {
 };
 
 export default PortfolioPage;
+
