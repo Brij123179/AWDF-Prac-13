@@ -199,3 +199,4 @@ const AIAssistantModal = ({ isOpen, onClose }) => {
 };
 
 export default AIAssistantModal;
+

@@ -1,23 +1,42 @@
 import React from 'react';
-import { Heart, Zap, Layers } from 'lucide-react';
+import { Terminal, GitBranch, Cpu, ShieldCheck } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-          <Zap size={14} color="#6366f1" />
-          <span>React 18 Concurrent Features & Code Splitting</span>
-        </span>
-        <span>•</span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-          <Layers size={14} color="#06b6d4" />
-          <span>Vite 5 Rollup Chunk Segmentation</span>
-        </span>
+    <footer style={{
+      borderTop: '1px solid var(--border-subtle)',
+      background: 'rgba(8, 11, 18, 0.95)',
+      padding: '2rem 1.8rem',
+      marginTop: 'auto',
+      fontSize: '0.82rem',
+      color: 'var(--text-muted)'
+    }}>
+      <div style={{ maxWidth: '1260px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, color: '#f8fafc', marginBottom: '0.2rem' }}>
+            <Terminal size={15} color="#38bdf8" />
+            <span>Brij Patel &bull; TaskFlow Pro Capstone Platform</span>
+          </div>
+          <p style={{ fontSize: '0.76rem', color: 'var(--text-faint)' }}>
+            Charotar University of Science and Technology (CHARUSAT) &bull; ITUE301: Advanced Web Development Frameworks
+          </p>
+        </div>
+
+        <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center', flexWrap: 'wrap', fontSize: '0.78rem' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <Cpu size={14} color="#34d399" />
+            <span>Practicals 1–13 Unified</span>
+          </span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <ShieldCheck size={14} color="#38bdf8" />
+            <span>Server-Side Isolated AI</span>
+          </span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <GitBranch size={14} color="#fbbf24" />
+            <span>CI/CD Automated Testing</span>
+          </span>
+        </div>
       </div>
-      <p style={{ fontSize: '0.78rem', color: '#64748b' }}>
-        Practical 8 • ITUE301 Advanced Web Development Frameworks • CO1 / PO3, PO5
-      </p>
     </footer>
   );
 };

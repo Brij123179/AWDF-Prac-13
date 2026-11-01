@@ -68,6 +68,28 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
+  // Guest / Instant Demo login handler
+  const loginAsGuest = async () => {
+    try {
+      const demoEmail = 'demo_evaluator@charusat.edu';
+      const demoPass = 'Charusat@2026';
+      try {
+        return await login(demoEmail, demoPass);
+      } catch (e) {
+        return await register('Brij Patel (Demo Guest)', demoEmail, demoPass);
+      }
+    } catch (err) {
+      // Fallback synthetic session if local backend is starting
+      const fallbackUser = { id: 'guest_demo_user', name: 'Brij Patel (Demo Guest)', email: 'demo_evaluator@charusat.edu' };
+      const fallbackToken = 'mock_jwt_demo_token_practical_13';
+      localStorage.setItem('p10_token', fallbackToken);
+      localStorage.setItem('p10_user', JSON.stringify(fallbackUser));
+      setToken(fallbackToken);
+      setUser(fallbackUser);
+      return { token: fallbackToken, user: fallbackUser };
+    }
+  };
+
   // Register handler
   const register = async (name, email, password) => {
     const res = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -159,6 +181,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         login,
         register,
+        loginAsGuest,
         logout,
         authFetch,
         bypassCache,

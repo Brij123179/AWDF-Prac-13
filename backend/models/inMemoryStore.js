@@ -119,6 +119,100 @@ class InMemoryStore {
     this.tasks.push(...starters);
     return starters;
   }
+
+  findProjects(category) {
+    if (!this.projects) this.initProjects();
+    if (category && category !== 'All') {
+      return this.projects.filter(p => p.category.toLowerCase() === category.toLowerCase());
+    }
+    return this.projects;
+  }
+
+  createProject(data) {
+    if (!this.projects) this.initProjects();
+    const newProj = {
+      _id: `proj_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      createdAt: new Date().toISOString(),
+      ...data
+    };
+    this.projects.unshift(newProj);
+    return newProj;
+  }
+
+  findContacts() {
+    if (!this.contacts) this.initContacts();
+    return this.contacts;
+  }
+
+  createContact(data) {
+    if (!this.contacts) this.initContacts();
+    const newContact = {
+      _id: `contact_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      createdAt: new Date().toISOString(),
+      ...data
+    };
+    this.contacts.unshift(newContact);
+    return newContact;
+  }
+
+  initProjects() {
+    this.projects = [
+      {
+        _id: 'proj_1',
+        title: 'TaskFlow Pro & Developer Portfolio',
+        description: 'Unified capstone platform combining modern React, REST API, Caching, EventEmitters, Docker, CI/CD, and AI Copilot.',
+        category: 'FullStack',
+        status: 'Completed',
+        progress: 100,
+        teamMembers: ['Brij Patel'],
+        dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString()
+      },
+      {
+        _id: 'proj_2',
+        title: 'Resilient Server-Side AI Task Copilot',
+        description: 'Secure OpenAI & Gemini integration with graceful degradation fallback and rate limit protection.',
+        category: 'Backend',
+        status: 'Completed',
+        progress: 100,
+        teamMembers: ['Brij Patel'],
+        dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+      },
+      {
+        _id: 'proj_3',
+        title: 'In-Memory Cache & Explain Query Optimizer',
+        description: 'High-speed node-cache telemetry (TTL 60s) with sub-millisecond response and MongoDB execution plan benchmarks.',
+        category: 'Backend',
+        status: 'Completed',
+        progress: 100,
+        teamMembers: ['Brij Patel'],
+        dueDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString()
+      },
+      {
+        _id: 'proj_4',
+        title: 'Docker Compose & Multi-Stage Deployment Mesh',
+        description: 'Alpine multi-stage builds with isolated bridge networks and persistent Mongo data volumes.',
+        category: 'DevOps',
+        status: 'Completed',
+        progress: 100,
+        teamMembers: ['Brij Patel'],
+        dueDate: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toISOString()
+      }
+    ];
+  }
+
+  initContacts() {
+    this.contacts = [
+      {
+        _id: 'contact_1',
+        name: 'Dr. Faculty Reviewer',
+        email: 'faculty@charusat.ac.in',
+        subject: 'ITUE301 Capstone Review',
+        category: 'Course Feedback',
+        message: 'Excellent architecture combining Practicals 1 to 13 into a single coherent full-stack application.',
+        createdAt: new Date().toISOString()
+      }
+    ];
+  }
 }
 
 export const inMemoryStore = new InMemoryStore();

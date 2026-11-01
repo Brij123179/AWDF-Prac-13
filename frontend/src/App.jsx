@@ -12,26 +12,23 @@ import AuthModal from './components/AuthModal';
 import { AuthProvider } from './context/AuthContext';
 import { lazyWithMinDelay } from './utils/lazyWithMinDelay';
 
-// ============================================================================
-// DYNAMIC IMPORTS VIA lazyWithMinDelay() - PRACTICAL 8 CORE CODE SPLITTING
-// Enforces a minimum 300ms fallback duration to eliminate UI flicker (Supplementary Problem 2)
-// ============================================================================
-const HomePage = lazyWithMinDelay(() => import('./pages/HomePage'), 250);
-const ProjectsPage = lazyWithMinDelay(() => import('./pages/ProjectsPage'), 250);
-const ContactPage = lazyWithMinDelay(() => import('./pages/ContactPage'), 250);
-const PerformancePage = lazyWithMinDelay(() => import('./pages/PerformancePage'), 250);
-const AboutPage = lazyWithMinDelay(() => import('./pages/AboutPage'), 250);
+// Dynamic code-split route components (Practical 8)
+const PortfolioPage = lazyWithMinDelay(() => import('./pages/PortfolioPage'), 200);
+const HomePage = lazyWithMinDelay(() => import('./pages/HomePage'), 200);
+const ProjectsPage = lazyWithMinDelay(() => import('./pages/ProjectsPage'), 200);
+const PerformancePage = lazyWithMinDelay(() => import('./pages/PerformancePage'), 200);
+const ContactPage = lazyWithMinDelay(() => import('./pages/ContactPage'), 200);
 
-function AppRoutes({ addToast, onOpenAuthModal, trackChunkLoaded }) {
+function AppRoutes({ addToast, onOpenAuthModal, onOpenAIModal, trackChunkLoaded }) {
   const location = useLocation();
 
   const getRouteLabel = (path) => {
     switch (path) {
+      case '/tasks': return 'Tasks Workspace';
       case '/projects': return 'Projects';
+      case '/performance': return 'Performance & Cache';
       case '/contact': return 'Contact';
-      case '/performance': return 'Performance';
-      case '/about': return 'About';
-      default: return 'Home';
+      default: return 'Portfolio';
     }
   };
 
@@ -42,8 +39,21 @@ function AppRoutes({ addToast, onOpenAuthModal, trackChunkLoaded }) {
   return (
     <Suspense fallback={<RouteLoadingFallback routeName={getRouteLabel(location.pathname)} />}>
       <Routes>
+        {/* Route 1: Combined Developer Portfolio (Practicals 1-13 Overview) */}
         <Route
           path="/"
+          element={
+            <PortfolioPage
+              addToast={addToast}
+              onOpenAuthModal={onOpenAuthModal}
+              onOpenAIModal={onOpenAIModal}
+            />
+          }
+        />
+
+        {/* Route 2: Full-Stack TaskFlow Pro Workspace */}
+        <Route
+          path="/tasks"
           element={
             <HomePage
               addToast={addToast}
@@ -51,6 +61,8 @@ function AppRoutes({ addToast, onOpenAuthModal, trackChunkLoaded }) {
             />
           }
         />
+
+        {/* Route 3: Projects Catalogue Deep Dive */}
         <Route
           path="/projects"
           element={
@@ -59,14 +71,8 @@ function AppRoutes({ addToast, onOpenAuthModal, trackChunkLoaded }) {
             />
           }
         />
-        <Route
-          path="/contact"
-          element={
-            <ContactPage
-              addToast={addToast}
-            />
-          }
-        />
+
+        {/* Route 4: Performance, In-Memory Caching & Query Telemetry HUD */}
         <Route
           path="/performance"
           element={
@@ -75,10 +81,26 @@ function AppRoutes({ addToast, onOpenAuthModal, trackChunkLoaded }) {
             />
           }
         />
+
+        {/* Route 5: Interactive Contact Hub (Practical 2 & 6) */}
         <Route
-          path="/about"
+          path="/contact"
           element={
-            <AboutPage />
+            <ContactPage
+              addToast={addToast}
+            />
+          }
+        />
+
+        {/* Fallback */}
+        <Route
+          path="*"
+          element={
+            <PortfolioPage
+              addToast={addToast}
+              onOpenAuthModal={onOpenAuthModal}
+              onOpenAIModal={onOpenAIModal}
+            />
           }
         />
       </Routes>
@@ -94,13 +116,9 @@ function MainApp() {
   const [isAIModalOpen, setIsAIModalOpen] = useState(false);
   const [loadedChunks, setLoadedChunks] = useState(['/']);
 
-  const addToast = (message, type = 'success') => {
-    const id = Date.now() + Math.random();
+  const addToast = (message, type = 'info') => {
+    const id = Date.now() + Math.random().toString(36).substring(2, 6);
     setToasts((prev) => [...prev, { id, message, type }]);
-
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 4000);
   };
 
   const removeToast = (id) => {
@@ -131,6 +149,7 @@ function MainApp() {
           <AppRoutes
             addToast={addToast}
             onOpenAuthModal={() => setIsAuthModalOpen(true)}
+            onOpenAIModal={() => setIsAIModalOpen(true)}
             trackChunkLoaded={trackChunkLoaded}
           />
         </ChunkErrorBoundary>

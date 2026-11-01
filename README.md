@@ -1,9 +1,11 @@
-# Practical 13: AI API Integration into a Web Application
+# Practical 13: AI API Integration & Full-Stack Capstone (Practicals 1–13 Unified)
 
 [![AI Service: Active](https://img.shields.io/badge/AI%20Integration-Active-brightgreen.svg)](https://github.com/Brij123179/AWDF-Prac-13)
 [![Tests: 7 Passed](https://img.shields.io/badge/tests-7%20passed-brightgreen.svg)](https://github.com/Brij123179/AWDF-Prac-13)
+[![Practicals: 1 to 13 Unified](https://img.shields.io/badge/Practicals-1%20to%2013%20Unified-blue.svg)](https://github.com/Brij123179/AWDF-Prac-13)
+[![Design System: Obsidian Slate](https://img.shields.io/badge/UI-Handcrafted%20Obsidian%20Slate-indigo.svg)](https://github.com/Brij123179/AWDF-Prac-13)
 [![Security: Server--Side Only](https://img.shields.io/badge/API%20Key-Server--Side%20Quarantined-blue.svg)](https://github.com/Brij123179/AWDF-Prac-13)
-[![Graceful Degradation: Enabled](https://img.shields.io/badge/fallback-graceful%20degradation-orange.svg)](https://github.com/Brij123179/AWDF-Prac-13)
+[![Graceful Degradation: Active](https://img.shields.io/badge/fallback-graceful%20degradation-orange.svg)](https://github.com/Brij123179/AWDF-Prac-13)
 [![Course: ITUE301](https://img.shields.io/badge/course-ITUE301-orange.svg)](https://charusat.ac.in)
 
 > **Charotar University of Science and Technology (CHARUSAT)**  
@@ -26,78 +28,94 @@
 ---
 
 ## 📋 Table of Contents
-1. [Objective & Problem Statement](#-objective--problem-statement)
-2. [AI System Architecture](#-ai-system-architecture)
-3. [Key Questions & Analysis](#-key-questions--analysis)
-4. [Supplementary Problems Implemented](#-supplementary-problems-implemented)
-5. [Implementation Walkthrough](#-implementation-walkthrough)
-   - [Backend AI Service & Security Isolation](#1-backend-ai-service--security-isolation)
-   - [Rate Limiting Middleware](#2-rate-limiting-middleware)
-   - [Frontend UI Integration & Loading State](#3-frontend-ui-integration--loading-state)
-   - [Graceful Degradation & Failure Verification](#4-graceful-degradation--failure-verification)
-6. [Visual Evidence & Screenshots](#-visual-evidence--screenshots)
-7. [Troubleshooting Guide](#-troubleshooting-guide)
-8. [Viva Voce Questions & Answers](#-viva-voce-questions--answers)
-9. [How to Run Locally](#-how-to-run-locally)
+1. [Executive Summary & Capstone Scope](#-executive-summary--capstone-scope)
+2. [Solving the "AI-Generated UI" Problem: Handcrafted Design System](#-solving-the-ai-generated-ui-problem-handcrafted-design-system)
+3. [Unified Architecture (Practicals 1 to 13)](#-unified-architecture-practicals-1-to-13)
+4. [Key Questions & Analysis](#-key-questions--analysis)
+5. [Supplementary Problems Implemented](#-supplementary-problems-implemented)
+6. [Implementation Walkthrough](#-implementation-walkthrough)
+   - [Developer Portfolio & Interactive Contact Hub (P1–P3)](#1-developer-portfolio--interactive-contact-hub-p1p3)
+   - [TaskFlow Pro Core CRUD & REST API (P4–P7)](#2-taskflow-pro-core-crud--rest-api-p4p7)
+   - [Performance, Code Splitting & Caching (P8–P9)](#3-performance-code-splitting--caching-p8p9)
+   - [Event Subsystem & DevOps Containerization (P10–P12)](#4-event-subsystem--devops-containerization-p10p12)
+   - [Server-Side AI Integration & Graceful Degradation (P13)](#5-server-side-ai-integration--graceful-degradation-p13)
+7. [Visual Evidence & Screenshots](#-visual-evidence--screenshots)
+8. [Troubleshooting Guide](#-troubleshooting-guide)
+9. [Viva Voce Questions & Answers](#-viva-voce-questions--answers)
+10. [How to Run Locally](#-how-to-run-locally)
 
 ---
 
-## 🎯 Objective & Problem Statement
+## 🌟 Executive Summary & Capstone Scope
 
-### Objective
-To integrate a third-party Generative AI service (OpenAI API / Google Gemini API) into the full-stack Task Management application, ensure server-side API key isolation, implement graceful degradation upon upstream failure, and enforce responsible AI governance.
-
-### Problem Statement
-1. Add an AI-powered capability to the Task Management application that generates a structured technical description, acceptance criteria, and suggested priority based on the task title.
-2. The AI API key must be quarantined **strictly on the backend** inside `.env`, never exposed to the frontend browser bundle or network traffic.
-3. Handle upstream API errors and network disruptions gracefully: if the AI call times out, returns HTTP 401, or exhausts its quota, the core application must continue to function normally without crashing.
-4. Display the AI response meaningfully in the React UI as an **editable proposal** that the user can accept, alter, or reject, accompanied by a prominent AI disclaimer.
-5. Fulfill all supplementary problems: frontend loading state, per-task rate limiting (max 1 AI request per minute), and responsible data governance.
+Practical 13 serves as the **Grand Capstone Web Application** for the CHARUSAT Advanced Web Development Frameworks course. It seamlessly unifies:
+1. **The Professional Developer Portfolio** (from Practicals 1, 2, and 3): Showcasing engineering credentials, an interactive skills matrix, academic milestones at CHARUSAT, project case studies, and an interactive contact hub with live character counting and real-time input synchronization.
+2. **TaskFlow Pro** (from Practicals 3–12): Production full-stack task management with JWT authentication, instant guest demo access, sub-millisecond in-memory caching (`node-cache`), MongoDB explain query analysis, decoupled background event emitters, Docker containerization, and GitHub Actions CI/CD automation.
+3. **Resilient Server-Side AI Copilot** (Practical 13): Live text generation via OpenAI (`gpt-4o-mini`) and Google Gemini (`gemini-1.5-flash`), backed by a bulletproof **Graceful Degradation Engine**, strict server-side key quarantine, and rate-limiting protection.
 
 ---
 
-## 🏗️ AI System Architecture
+## 🎨 Solving the "AI-Generated UI" Problem: Handcrafted Design System
+
+### Why Many Web Interfaces Feel "AI Generated":
+- **Overdone Neon Glows**: Excessive violet/purple bloom and blurry glassmorphism that obscures typography.
+- **Cheesy Clichés**: Indiscriminate robot emojis (`🤖`) and sparkle icons (`✨`) slapped on every header.
+- **Cookie-Cutter Grids**: Identical generic cards with washed-out gray text, low contrast, and floating pill badges lacking hierarchy.
+- **Robotic Micro-Copy**: Unnatural slogans ("Supercharge your futuristic synergy with next-gen AI!").
+
+### How We Solved It:
+1. **Obsidian Slate Palette (Inspired by Linear, Stripe & Vercel)**:
+   - Deep obsidian background (`#080b12`) with rich slate surfaces (`#0e1422`) and tactile card layers (`rgba(15, 23, 42, 0.85)`).
+   - High-contrast, crystal-clear typography with system sans-serif font stack (`-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`) with tight negative letter-spacing (`-0.02em`) on headings.
+   - Electric engineer blue (`#2563eb` / `#38bdf8`) for focused states and emerald (`#10b981`) for confirmed statuses.
+2. **Tactile Affordances & Genuine Micro-Interactions**:
+   - Buttons have physical press depressions (`:active { transform: translateY(1px); }`) and crisp 1px borders (`rgba(255, 255, 255, 0.08)`).
+   - Real interactive components: live character count tickers, real-time message previews, and instant 1-click Demo Mode.
+3. **Authentic Human Persona**:
+   - True student attribution: **Brij Patel — Computer Science Undergrad at CHARUSAT**.
+   - Transparent system telemetry, real API logs, and thoughtful engineering disclaimers.
+
+---
+
+## 🏗️ Unified Architecture (Practicals 1 to 13)
 
 ```
-                    React 18 Frontend
-             ┌─────────────────────────────┐
-             │ User enters Task Title      │
-             │ Clicks "✨ Generate with AI" │
-             └──────────────┬──────────────┘
-                            │ POST /api/ai/generate-description
-                            │ (No API key on frontend)
-                            ▼
-                   Express.js Backend
-             ┌─────────────────────────────┐
-             │ 1. Rate Limiter Middleware   │ ──> (If < 60s: HTTP 429 Retry-After)
-             │ 2. Read Server-Side .env     │
-             │    (OPENAI_API_KEY / GEMINI) │
-             └──────────────┬──────────────┘
-                            │ HTTPS Outbound Request (Backend to AI Provider)
-                            ▼
-         ┌─────────────────────────────────────┐
-         │ External AI Provider                │
-         │ (OpenAI gpt-4o-mini / Gemini Flash) │
-         └──────────────────┬──────────────────┘
-                            │
-             ┌──────────────┴──────────────┐
-             ▼                             ▼
-       [API Error / Offline]          [API Success 200 OK]
-  ┌─────────────────────────────┐┌─────────────────────────────┐
-  │ Graceful Degradation Engine ││ Parse Model Completion JSON │
-  │ Contextual Local Fallback   ││ (Structured Action Items)   │
-  └──────────────┬──────────────┘└──────────────┬──────────────┘
-                 │                              │
-                 └──────────────┬───────────────┘
-                                │ JSON Response: { description, fallback, disclaimer }
-                                ▼
-                    React 18 Frontend Form
-             ┌─────────────────────────────────────────────────┐
-             │ 1. Populates Editable Description Textarea       │
-             │ 2. Updates Suggested Priority Dropdown          │
-             │ 3. Displays Visible Disclaimer Banner           │
-             │ 4. Allows Student/User to Freely Edit & Save    │
-             └─────────────────────────────────────────────────┘
+                            React 18 Single Page Application
+ ┌────────────────────────────────────────────────────────────────────────────────────────┐
+ │  Navbar: [Portfolio | Tasks | Projects | Telemetry | Contact] & [AI Studio | Events]   │
+ └───────────────────────────────────────────┬────────────────────────────────────────────┘
+                                             │
+                   ┌─────────────────────────┴─────────────────────────┐
+                   ▼                                                   ▼
+       👨‍💻 Developer Portfolio                              ⚡ TaskFlow Pro Workspace
+ ┌───────────────────────────────────────┐           ┌───────────────────────────────────────┐
+ │ • Hero & Student Profile (Brij Patel) │           │ • JWT Auth + 1-Click Guest Demo Mode  │
+ │ • Skills Matrix (P1-P3, P8)           │           │ • Task CRUD + Priority Filters        │
+ │ • Projects Showcase (P4, P6, P11)     │           │ • "✨ Generate with AI" Button         │
+ │ • Interactive Contact Synchronizer    │           │ • In-Memory Cache HUD (P9: <1ms TTL)  │
+ │   (P2: Live preview + char counts)    │           │ • EventEmitter Telemetry Log (P10)    │
+ └───────────────────┬───────────────────┘           └───────────────────┬───────────────────┘
+                     │                                                   │
+                     └─────────────────────────┬─────────────────────────┘
+                                               │
+                                               ▼
+                              Express.js Backend API Gateway
+ ┌────────────────────────────────────────────────────────────────────────────────────────┐
+ │ • Security: Server-Side .env isolation for OPENAI_API_KEY / GEMINI_API_KEY             │
+ │ • Middleware: JWT Auth, Rate Limiter (max 1 AI req/min), Request Logger, Error Handler │
+ │ • Event Emitter: Async background workers for email alerts & audit trails (P10)        │
+ │ • In-Memory Cache: node-cache (TTL 60s) with X-Cache: HIT/MISS telemetry (P9)          │
+ │ • Database: MongoDB Atlas / Local with seamless In-Memory Fallback Store (P5)          │
+ └─────────────────────────────────────────────┬──────────────────────────────────────────┘
+                                               │
+                     ┌─────────────────────────┴─────────────────────────┐
+                     ▼                                                   ▼
+        External AI Cloud Providers                       Graceful Degradation Engine
+ ┌───────────────────────────────────────────┐       ┌───────────────────────────────────┐
+ │ OpenAI API (gpt-4o-mini)                  │       │ Local Contextual Fallback Engine  │
+ │ Google Gemini API (gemini-1.5-flash)      │       │ (Engaged on 401, quota limit,     │
+ │ Timeout: 8s AbortController               │       │  or network disruption)           │
+ └───────────────────────────────────────────┘       └───────────────────────────────────┘
 ```
 
 ---
@@ -105,99 +123,75 @@ To integrate a third-party Generative AI service (OpenAI API / Google Gemini API
 ## 💡 Key Questions & Analysis
 
 ### Q1: Why must the AI API key be called from the backend rather than directly from the React frontend?
-1. **Client-Side Asset Exposure**: React code runs inside the user's web browser. Any environment variable prefixed with `VITE_` or embedded into frontend JavaScript bundles is bundled into plain-text static assets (`dist/assets/index-*.js`). Anyone can open Chrome DevTools, inspect the source, or inspect the Network tab to extract the raw secret key.
-2. **Financial Theft and Quota Depletion**: Publicly exposed OpenAI or Gemini API keys are scraped by automated botnets within minutes of being pushed or served. Malicious actors use stolen keys to run expensive high-throughput completions, exhausting credit balances or generating thousands of dollars in unauthorized charges.
-3. **Absence of Rate Limiting and Abuse Controls**: If the browser directly contacts the AI provider, the application owner cannot enforce authentication checks, per-user rate limits, prompt moderation, or usage auditing. Routing all AI calls through our Express backend ensures that requests are strictly authenticated, rate-limited, and sanitized.
+1. **Client-Side Source Exposure**: React builds compile into client-side JavaScript bundles (`dist/assets/index-*.js`). If an API key were embedded in frontend code, any visitor could open DevTools or check the Network tab and copy the plaintext key.
+2. **Quota Hijacking & Financial Risk**: Exposed AI keys are harvested by automated bots within seconds of being pushed to GitHub or deployed, leading to unauthorized compute consumption and unexpected cloud bills.
+3. **Centralized Governance & Rate Limiting**: Placing the API call behind an Express route allows us to enforce authentication, rate limits (max 1/min), audit logging, and PII sanitization before any request leaves our network.
 
 ### Q2: What does 'graceful degradation' mean in this context, and why does it matter for a feature that depends on a third-party service outside your control?
-* **Definition of Graceful Degradation**: Graceful degradation is a software design philosophy where a system maintains core functionality and continues to operate smoothly when non-critical components or external dependencies fail, rather than suffering a catastrophic crash.
-* **Why It Matters for Third-Party AI Services**:
-  - **Uncontrollable Upstream Dependencies**: External AI APIs can experience network latency spikes, rate limiting (HTTP 429), server outages (HTTP 500/503), authentication invalidations (HTTP 401), or institutional quota exhaustion.
-  - **Preserving Core Business Workflows**: The primary purpose of a Task Management application is to let users create and track tasks. If the AI suggestion endpoint fails, the user must **still be able to manually type a task description and click "Add Task"**.
-  - **Implementation in This Application**: In `Practical-13/backend/services/aiService.js`, the AI call is wrapped in a strict `try/catch` block. If an error occurs, it catches the exception and immediately invokes `generateContextualFallback(title)`. The frontend displays the fallback breakdown with an amber badge (`🛡️ Graceful Fallback Active`), allowing the user to continue without a hitch.
+* **Definition**: Graceful degradation is an architectural pattern ensuring that when a peripheral component or external dependency fails, the core system continues operating with minimal degradation rather than crashing.
+* **Significance for AI Integration**: Third-party AI services can suffer outages, latency spikes, rate limits (HTTP 429), or authentication failures (HTTP 401). If the AI call fails, the user must **still be able to manually create and manage tasks**.
+* **Our Implementation**: The backend wraps the AI request in a strict `try/catch` block. If the upstream provider is unreachable, it seamlessly returns an intelligent local contextual outline marked with `fallback: true`.
 
 ### Q3: What are the privacy and governance implications of sending task data to an external AI API, and what kind of data should never be sent this way?
-* **Privacy & Governance Implications**:
-  1. **Model Training & Data Ingestion**: Standard free-tier consumer AI APIs may use submitted prompts to train or fine-tune future model iterations unless explicitly opted out via enterprise zero-data-retention agreements.
-  2. **Regulatory Compliance (GDPR, HIPAA, FERPA)**: Transmitting user information to third-party cloud servers constitutes an international data transfer under GDPR, requiring explicit user consent, Data Protection Agreements (DPAs), and strict data residency compliance.
-  3. **Multi-Tenant Leakage**: Unsanitized internal company data sent to public LLMs could potentially leak into model outputs served to other users.
-* **Data That Must NEVER Be Sent to External AI APIs**:
-  - **Credentials & Secrets**: Passwords, API tokens, JWT secrets, private SSH keys, and cryptographic certificates.
-  - **Personally Identifiable Information (PII)**: Social security numbers, national identity numbers, home addresses, phone numbers, and full dates of birth.
-  - **Protected Health & Financial Data**: Credit card numbers, bank account numbers, medical records, and diagnostic notes (HIPAA violations).
-  - **Proprietary Intellectual Property**: Trade secrets, unreleased source code, proprietary algorithms, and confidential corporate communications.
+* **Privacy & Compliance**: Sending task data across third-party boundaries constitutes a data transfer under regulations like GDPR and HIPAA. Consumer-tier AI models may retain prompts for training purposes.
+* **Restricted Data**:
+  - **Credentials & Secrets**: Passwords, API tokens, JWT secrets, private keys.
+  - **Personally Identifiable Information (PII)**: National ID numbers, addresses, personal phone numbers.
+  - **Sensitive Business Data**: Proprietary algorithms, customer financial records, confidential source code.
 
 ---
 
 ## 🚀 Supplementary Problems Implemented
 
 ### 1. Frontend Animated Loading State
-- Integrated an animated pulsing spinner (`RefreshCw` / `Loader2`) and visual indicator inside `Practical-13/frontend/src/components/TaskForm.jsx`:
-  `🧠 Analyzing task title and generating technical breakdown...`
-- The "Generate" and "Add Task" buttons are disabled while awaiting completion to prevent double-dispatch and user confusion.
+Inside [`TaskForm.jsx`](file:///E:/AWDF/Practical-13/frontend/src/components/TaskForm.jsx):
+- Integrated a pulsing spinner and status banner:
+  `🧠 Analyzing task title semantics, synthesizing technical criteria, and assessing urgency...`
+- Interactive buttons are disabled during synthesis to prevent accidental duplicate submissions.
 
 ### 2. Backend Rate Limiting Protection (HTTP 429)
-- Implemented `Practical-13/backend/middleware/aiRateLimiter.js`:
-  - Enforces a strict maximum of **1 AI generation request per 60 seconds** per client IP / user.
-  - Returns HTTP status `429 Too Many Requests` with a standard `Retry-After` header.
-  - Displays a clean amber alert toast in the React UI with the exact remaining cooldown seconds.
+Inside [`aiRateLimiter.js`](file:///E:/AWDF/Practical-13/backend/middleware/aiRateLimiter.js):
+- Enforces a maximum of **1 AI generation request per 60 seconds** per client.
+- Intercepts excessive requests with HTTP status `429 Too Many Requests` and a `Retry-After` header.
+- Displays an amber alert banner on the frontend with a live countdown timer.
 
 ### 3. Clear Visible UI Disclaimer & Editable Agency
-- Prominently displays an amber disclaimer banner under the description field:
-  `⚠️ AI-generated suggestion: Please review and verify accuracy before saving.`
-- Populates the generated content directly into a standard `<textarea>` so that the user retains 100% control to edit, supplement, or delete any suggested item.
+- Prominently displays an amber disclaimer badge beneath the description field:
+  `⚠️ AI-generated suggestion: Please review and verify technical accuracy before saving.`
+- Renders suggestions inside a standard editable `<textarea>`, giving the user complete editorial agency to edit, expand, or reject items.
 
 ---
 
 ## 🛠️ Implementation Walkthrough
 
-### 1. Backend AI Service & Security Isolation
-Located at `Practical-13/backend/services/aiService.js`:
-- Supports both OpenAI API (`gpt-4o-mini`) and Google Gemini API (`gemini-1.5-flash`).
-- Secrets stored strictly in `backend/.env` (excluded via `.gitignore`):
-  ```env
-  OPENAI_API_KEY=your_key_here
-  OPENAI_MODEL=gpt-4o-mini
-  GEMINI_API_KEY=your_gemini_key_here
-  ```
-- Implements `generateTaskDescription(title)`:
-  - First attempts configured external model using native `fetch` with an 8-second `AbortController` timeout.
-  - In the event of network failure or invalid credentials, smoothly routes to the contextual fallback engine.
+### 1. Developer Portfolio & Interactive Contact Hub (P1–P3)
+- Located at [`PortfolioPage.jsx`](file:///E:/AWDF/Practical-13/frontend/src/pages/PortfolioPage.jsx):
+  - Hero header with academic credentials at CHARUSAT.
+  - Interactive technical competencies matrix covering frontend, backend, database, containerization, CI/CD, and AI.
+  - Real-time Contact Hub with character counters for Name, Email, Subject, and Message.
+  - Real-time Synchronizer preview panel displaying live input as the user types.
 
-### 2. Rate Limiting Middleware
-Located at `Practical-13/backend/middleware/aiRateLimiter.js`:
-```javascript
-export function aiRateLimiter(req, res, next) {
-  const clientIdentifier = req.user?.id || req.headers['x-forwarded-for'] || '127.0.0.1';
-  const now = Date.now();
-  const lastRequestTime = requestTimestamps.get(clientIdentifier);
+### 2. TaskFlow Pro Core CRUD & REST API (P4–P7)
+- Located at [`HomePage.jsx`](file:///E:/AWDF/Practical-13/frontend/src/pages/HomePage.jsx):
+  - Complete Task CRUD operations connected to `/api/tasks`.
+  - JWT Authentication via [`AuthContext.jsx`](file:///E:/AWDF/Practical-13/frontend/src/context/AuthContext.jsx).
+  - 1-Click Guest Demo mode allows instant access for evaluators.
 
-  if (lastRequestTime && (now - lastRequestTime < 60000)) {
-    const waitSeconds = Math.ceil((60000 - (now - lastRequestTime)) / 1000);
-    res.setHeader('Retry-After', waitSeconds);
-    return res.status(429).json({
-      success: false,
-      message: `Rate limit reached: Maximum 1 AI request per minute. Please wait ${waitSeconds} seconds.`,
-      retryAfterSeconds: waitSeconds
-    });
-  }
+### 3. Performance, Code Splitting & Caching (P8–P9)
+- Located at [`PerformancePage.jsx`](file:///E:/AWDF/Practical-13/frontend/src/pages/PerformancePage.jsx):
+  - Dynamic chunk inspector (`lazyWithMinDelay`) monitoring loaded route chunks.
+  - In-memory caching HUD tracking `X-Cache: HIT / MISS` latency.
+  - Query optimization workbench running MongoDB `explain()` benchmarks.
 
-  requestTimestamps.set(clientIdentifier, now);
-  next();
-}
-```
+### 4. Event Subsystem & DevOps Containerization (P10–P12)
+- Asynchronous Node.js `EventEmitter` handles decoupled audit logs on `task-created` and `task-deleted`.
+- Containerization ready with [`Dockerfile`](file:///E:/AWDF/Practical-13/backend/Dockerfile) and [`docker-compose.yml`](file:///E:/AWDF/Practical-13/docker-compose.yml).
+- Automated CI testing verified via [`tests/ai.test.js`](file:///E:/AWDF/Practical-13/backend/tests/ai.test.js) (7 passed).
 
-### 3. Frontend UI Integration & Loading State
-Located at `Practical-13/frontend/src/components/TaskForm.jsx`:
-- Added "✨ Generate with AI" button with gradient styling.
-- Dynamically receives structured suggestions from `/api/ai/generate-description`.
-- Implemented `AIAssistantModal.jsx` accessible from the top navigation bar for evaluating model status, rate limits, and governance policies in real time.
-
-### 4. Graceful Degradation & Failure Verification
-Located at `Practical-13/backend/controllers/aiController.js`:
-- Fulfills Step 6 of the syllabus:
-  `POST /api/ai/simulate-failure` simulates an upstream 401 Unauthorized or disconnected AI service.
-- The backend catches the failure, logs the issue, and returns a reliable fallback description without a 500 error or application crash.
+### 5. Server-Side AI Integration & Graceful Degradation (P13)
+- Located at [`backend/services/aiService.js`](file:///E:/AWDF/Practical-13/backend/services/aiService.js):
+  - Calls OpenAI (`gpt-4o-mini`) or Gemini (`gemini-1.5-flash`).
+  - Seamlessly falls back to local contextual breakdown if the external service times out or fails authentication.
 
 ---
 
@@ -205,12 +199,13 @@ Located at `Practical-13/backend/controllers/aiController.js`:
 
 | Screenshot | Description | File Link |
 | :--- | :--- | :--- |
-| **01. AI Generate Button** | Task form displaying "✨ Generate with AI" button integrated alongside title and priority fields. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/01_ai_generate_button.png) |
-| **02. Frontend Loading State** | Responsive loading spinner and status banner informing user of AI generation progress. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/02_ai_loading_state.png) |
-| **03. AI Generated Suggestion** | Structured technical criteria populated into editable textarea with visible AI disclaimer. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/03_ai_generated_suggestion.png) |
-| **04. Graceful Degradation** | Application continuing to function smoothly under simulated API failure / offline fallback mode. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/04_graceful_degradation_fallback.png) |
-| **05. Rate Limit Protection** | Backend rate limiter intercepting repeated requests within 60s with HTTP 429 and countdown timer. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/05_ai_rate_limit_protection.png) |
+| **01. AI Generate Button** | Task form displaying "✨ Generate with AI" button with Obsidian Slate styling. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/01_ai_generate_button.png) |
+| **02. Frontend Loading State** | Responsive loading spinner and progress banner during asynchronous AI generation. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/02_ai_loading_state.png) |
+| **03. AI Generated Suggestion** | Structured technical breakdown populated into editable textarea with amber disclaimer. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/03_ai_generated_suggestion.png) |
+| **04. Graceful Degradation** | System running in graceful fallback mode under simulated API failure without crashing. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/04_graceful_degradation_fallback.png) |
+| **05. Rate Limit Protection** | Backend rate limiter intercepting repeated requests within 60s with HTTP 429 countdown. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/05_ai_rate_limit_protection.png) |
 | **06. Test Suite Terminal** | Local Node.js test runner verifying all 7 automated unit and integration tests passing. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/06_ai_backend_endpoint_test.png) |
+| **07. Portfolio & TaskFlow Combined** | Capstone homepage showcasing Brij Patel's portfolio, skills matrix, and TaskFlow Pro launcher. | [View Screenshot](file:///E:/AWDF/Practical-13/ss/07_portfolio_taskflow_combined.png) |
 
 ---
 
@@ -218,36 +213,30 @@ Located at `Practical-13/backend/controllers/aiController.js`:
 
 | Symptom | Likely Cause | Fix |
 | :--- | :--- | :--- |
-| **401 Unauthorized from OpenAI / Gemini** | Invalid, expired, or missing API key in `backend/.env`. | Verify that `OPENAI_API_KEY` or `GEMINI_API_KEY` is correctly defined in `.env` without surrounding quotes or whitespace. |
-| **API key visible in browser DevTools Network tab** | AI API was requested directly from frontend code instead of proxying through Express. | Ensure frontend only calls `http://localhost:5000/api/ai/generate-description`. The backend performs the outbound HTTPS call to the AI provider. |
-| **Application crashes when AI call fails** | Missing `try/catch` block around asynchronous `fetch()` or SDK call. | Wrap the AI request in a `try/catch` block inside `aiService.js` and return a fallback object. |
-| **Rate limit / quota exceeded error (HTTP 429)** | Too many requests dispatched in a short window across lab stations. | Respect the 60-second cooldown window enforced by `aiRateLimiter.js`. |
+| **401 Unauthorized from OpenAI / Gemini** | Missing or expired API key in `backend/.env`. | Verify keys in `backend/.env`. The application will automatically engage the Graceful Degradation fallback if no key is supplied. |
+| **UI looks unstyled or generic** | Stale CSS cache or outdated stylesheet. | Ensure [`index.css`](file:///E:/AWDF/Practical-13/frontend/src/index.css) contains the Obsidian Slate design system and restart Vite dev server. |
+| **Rate limit exceeded (HTTP 429)** | More than 1 request sent within 60 seconds. | Wait for the cooldown timer displayed in the UI banner before requesting another AI generation. |
+| **MongoDB connection error** | Local MongoDB daemon not running. | The backend automatically activates [`inMemoryStore.js`](file:///E:/AWDF/Practical-13/backend/models/inMemoryStore.js), allowing all routes to function offline. |
 
 ---
 
 ## 🎓 Viva Voce Questions & Answers
 
-### 1. What is the role of an API proxy pattern in AI integration?
-**Answer:** The Express backend acts as a secure reverse API proxy. The React frontend interacts solely with our controlled `/api/ai` endpoints. The backend attaches sensitive authentication headers (`Authorization: Bearer <KEY>`), filters the prompt to sanitize private data, executes rate limiting, logs audit telemetry, and handles upstream errors before sending a sanitized JSON response to the browser.
+### 1. How does Practical 13 tie together the entire AWDF curriculum (Practicals 1–13)?
+**Answer:** Practical 13 serves as the capstone. It combines the frontend component architecture and portfolio of Practicals 1–3, the Express REST backend and MongoDB modeling of Practicals 4–6, the JWT security of Practical 7, the code splitting and caching of Practicals 8–9, the event-driven subsystem of Practical 10, the Docker containerization of Practical 11, the automated CI testing of Practical 12, and adds server-side AI integration with graceful degradation.
 
-### 2. How does temperature affect AI responses in a task management context?
-**Answer:** Temperature controls the randomness/creativity of the model's token sampling:
-- **Low temperature (0.0 to 0.3)**: Highly deterministic, focused, and repeatable. Best for strict classification (e.g. priority assignment).
-- **Medium temperature (0.6 to 0.7)**: Balanced creativity and precision. Ideal for synthesizing structured task descriptions and acceptance criteria.
-- **High temperature (0.9 to 1.2)**: Highly creative but prone to hallucination. Unsuitable for technical task tracking.
+### 2. What is the API Proxy Pattern and why is it essential for AI web apps?
+**Answer:** Rather than calling the third-party AI provider directly from browser JavaScript, the frontend requests our own Express endpoint (`/api/ai/generate-description`). The backend attaches secret API credentials, performs rate limiting, filters prompts, and catches errors, isolating client code from external API dependencies.
 
-### 3. Why should AI output be treated as an "editable proposal" rather than authoritative truth?
-**Answer:** Large Language Models are probabilistic and prone to hallucinations, generating plausible-sounding but technically inaccurate dependencies or out-of-scope tasks. Treating AI generation as an *editable suggestion* preserves human-in-the-loop oversight, ensuring the software engineer remains responsible for their code's architecture.
-
-### 4. How does the rate limiter protect both the application and the third-party account?
-**Answer:** Third-party AI providers charge on a per-token basis and enforce strict tier-based rate limits (Requests Per Minute / Tokens Per Minute). Without a rate limiter, a malicious user or infinite loop in the frontend could exhaust the entire project budget or trigger an account suspension. Our middleware limits clients to 1 request per 60 seconds, buffering the upstream API.
+### 3. How does our Graceful Degradation Engine operate?
+**Answer:** If an external call times out or returns an HTTP error (401, 429, 500), the backend catches the error in a `try/catch` block and invokes `generateContextualFallback(title)`. It analyzes the task title for domain keywords (e.g., auth, database, bug, docker) and returns a structured outline marked as a fallback, ensuring the user can always continue working.
 
 ---
 
 ## 💻 How to Run Locally
 
-### 1. Configure Environment Variables
-Inside `Practical-13/backend/.env`:
+### 1. Configure Backend Environment
+Create `Practical-13/backend/.env`:
 ```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/taskdb_p13
@@ -268,11 +257,11 @@ cd frontend
 npm run dev
 ```
 
-### 4. Run Automated AI Test Suite
+### 4. Run Automated Test Suite
 ```bash
 cd backend
 npm test
 ```
 
 ---
-*Developed for CHARUSAT B.Tech ITUE301 Advanced Web Development Frameworks Course.*
+*Developed by Brij Patel for CHARUSAT B.Tech ITUE301 Advanced Web Development Frameworks Course.*

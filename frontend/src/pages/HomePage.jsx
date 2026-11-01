@@ -9,10 +9,10 @@ import CacheMetricsCard from '../components/CacheMetricsCard';
 import CacheBenchmarkModal from '../components/CacheBenchmarkModal';
 import ExplainQueryModal from '../components/ExplainQueryModal';
 import { useAuth } from '../context/AuthContext';
-import { CheckSquare, ShieldAlert, Sparkles, RefreshCw, Layers, Zap } from 'lucide-react';
+import { CheckSquare, ShieldAlert, Sparkles, RefreshCw, Layers, Zap, Play } from 'lucide-react';
 
 const HomePage = ({ addToast, onOpenAuthModal }) => {
-  const { isAuthenticated, authFetch } = useAuth();
+  const { isAuthenticated, authFetch, loginAsGuest } = useAuth();
 
   const [tasks, setTasks] = useState([]);
   const [stats, setStats] = useState({ total: 0, completed: 0, pending: 0 });
@@ -193,24 +193,27 @@ const HomePage = ({ addToast, onOpenAuthModal }) => {
       </section>
 
       {!isAuthenticated ? (
-        <div style={{
-          background: 'var(--bg-card)',
-          border: 'var(--glass-border)',
-          borderRadius: 'var(--radius-lg)',
-          padding: '3.5rem 2rem',
-          textAlign: 'center',
-          backdropFilter: 'blur(12px)'
-        }}>
-          <ShieldAlert size={52} color="#a5b4fc" style={{ marginBottom: '1.2rem', opacity: 0.9 }} />
-          <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.6rem' }}>
-            Authentication Required for Tasks
+        <div className="card" style={{ padding: '3rem 2rem', textAlign: 'center', maxWidth: '640px', margin: '2rem auto' }}>
+          <ShieldAlert size={48} color="#60a5fa" style={{ marginBottom: '1rem', opacity: 0.9 }} />
+          <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.6rem' }}>
+            TaskFlow Pro &bull; Production Workspace
           </h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', maxWidth: '520px', margin: '0 auto 1.8rem auto' }}>
-            To view, create, and manage your private tasks, sign in or register an account. Test in-memory cache hits, write invalidation, and query optimizations live!
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '1.8rem' }}>
+            To view, create, edit, and delete tasks with real-time in-memory caching and AI description generation, launch with 1-click Demo Mode or sign in with your credentials.
           </p>
-          <button className="btn btn-primary" onClick={onOpenAuthModal}>
-            Sign In / Register Now
-          </button>
+          <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button
+              className="btn btn-primary"
+              onClick={loginAsGuest}
+              style={{ background: '#10b981', borderColor: '#10b981' }}
+            >
+              <Play size={15} fill="#ffffff" />
+              <span>1-Click Live Demo Mode</span>
+            </button>
+            <button className="btn btn-secondary" onClick={onOpenAuthModal}>
+              Sign In / Register
+            </button>
+          </div>
         </div>
       ) : (
         <>
